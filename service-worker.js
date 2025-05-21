@@ -1,46 +1,24 @@
-const CACHE_NAME = 'my-pwa-cache-v1';
-const FILES_TO_CACHE = [
+const CACHE_NAME = 'sound-tts-cache-v1';
+const urlsToCache = [
   '/',
   '/index.html',
   '/app.js',
   '/manifest.json',
+  // Add your icons if you have them
 ];
 
-// Install event - cache files
 self.addEventListener('install', event => {
-  console.log('[Service Worker] Install');
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('[Service Worker] Caching app shell');
-        return cache.addAll(FILES_TO_CACHE);
-      })
-  );
-  self.skipWaiting();
-});
-
-// Activate event - cleanup old caches
-self.addEventListener('activate', event => {
-  console.log('[Service Worker] Activate');
-  event.waitUntil(
-    caches.keys().then(keyList => {
-      return Promise.all(keyList.map(key => {
-        if (key !== CACHE_NAME) {
-          console.log('[Service Worker] Removing old cache:', key);
-          return caches.delete(key);
-        }
-      }));
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
     })
   );
-  self.clients.claim();
 });
 
-// Fetch event - serve cached content when offline
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
