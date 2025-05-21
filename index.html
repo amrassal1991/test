@@ -1,28 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My First PWA</title>
-
-  <!-- Link the manifest -->
-  <link rel="manifest" href="manifest.json" />
-
-  <!-- Theme color for Android status bar -->
-  <meta name="theme-color" content="#2196f3" />
-
-  <!-- Simple styling -->
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 2rem; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sound & TTS Player with Notebook Link</title>
+<link rel="manifest" href="manifest.json" />
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: #fff;
+    margin: 0; padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  h1 {
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px #0008;
+  }
+  select, button, textarea {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border: none;
+  }
+  select, textarea {
+    width: 300px;
+    max-width: 90vw;
+  }
+  button {
+    background: #ff4081;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #e73370;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  audio {
+    margin-top: 1rem;
+    outline: none;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 90vw;
+  }
+  .container {
+    background: #ffffff22;
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #0006;
+    margin-bottom: 1.5rem;
+  }
+  #openNotebookBtn {
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
-  <h1>Welcome to My First PWA!</h1>
-  <p>This app works offline and can be installed on your device.</p>
+  <h1>🎵 Sound & TTS Player</h1>
 
-  <button id="notifyBtn">Show Notification</button>
+  <div class="container">
+    <label for="audioSelect">Select sound from GitHub:</label><br/>
+    <select id="audioSelect">
+      <option value="">-- Choose a sound --</option>
+      <option value="https://raw.githubusercontent.com/yourusername/yourrepo/main/sound1.wav">Sound 1</option>
+      <option value="https://raw.githubusercontent.com/yourusername/yourrepo/main/sound2.wav">Sound 2</option>
+      <option value="https://raw.githubusercontent.com/yourusername/yourrepo/main/sound3.wav">Sound 3</option>
+    </select>
+    <br/>
+    <audio id="audioPlayer" controls></audio>
+  </div>
 
-  <script src="app.js" defer></script>
+  <div class="container">
+    <label for="ttsText">Or enter text for Text-to-Speech:</label><br/>
+    <textarea id="ttsText" placeholder="Type something..."></textarea><br/>
+    <button id="speakBtn">🔊 Speak</button>
+  </div>
+
+  <button id="openNotebookBtn" class="container" style="background:#ffffff33; color:#fff; border:none;">
+    📓 Open in Google Colab Notebook
+  </button>
+
+<script src="app.js"></script>
 </body>
 </html>
